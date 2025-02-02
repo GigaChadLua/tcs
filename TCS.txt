@@ -1,0 +1,31 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "TCS " .. Fluent.Version,
+    SubTitle = "by stolevanity",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.RightShift -- Used when theres no MinimizeKeybind
+})
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main", Icon = "" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
+
+local Options = Fluent.Options
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Reach", Default = false })
+
+    Toggle:OnChanged(function()
+        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, ball, 0)
+        firetouchinterest(game.Players.LocalPlayer.Character.Head, ball, 0)
+	    firetouchinterest(game.Players.LocalPlayer.Character["Left Leg"], ball, 0)
+	    firetouchinterest(game.Players.LocalPlayer.Character["Left Arm"], ball, 0)
+	end)
+Options.MyToggle:SetValue(false)
+local ball = workspace.WorkspaceCharacters.TCS or workspace.WorkspaceStadiums.TCS
